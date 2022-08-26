@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Healthy Weblog</h1>
+    {% for post in object_list %}
+        <div style="margin: 5%; background-color:blueviolet; color:white; padding:5px; border-radius:5%;">
+            <h2><a href="{% url 'post_detail' post.pk %}">{{post.title}}</a></h2>
+            <p>{{post.body}}</p>
+            <small>Author: {{post.author}}</small>
+        </div>
+        
+    {% endfor %}
+
+
+{% endblock content %}
