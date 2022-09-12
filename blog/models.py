@@ -1,6 +1,3 @@
-from audioop import reverse
-from distutils.archive_util import make_zipfile
-from turtle import title
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse

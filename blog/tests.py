@@ -1,3 +1,4 @@
+from urllib import response
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
@@ -27,6 +28,12 @@ class BlogTest(TestCase):
         post = Post(title = 'Post title')
         self.assertEqual(str(post), post.title)
 
+
+    # test for the absolute url
+    def test_get_absolute_url(self):
+        print(f'{self.post.get_absolute_url()}')
+        self.assertEqual(self.post.get_absolute_url(), '/post/1')
+
     def test_post_content(self):
         self.assertEqual(f'{self.post.title}', 'My Post Title')
         self.assertEqual(f'{self.post.body}', 'My Post content')
@@ -48,3 +55,32 @@ class BlogTest(TestCase):
         #check if the response page contains "My Post Title"
         #self.assertContains(response_page, 'My Post Title')
         #self.assertTemplateUsed(response_page, 'blog/post_detail.html')
+
+    # test for the create view
+    def test_post_create_view(self):
+        response = self.client.post(reverse('post_new'),
+        {'title': 'My title',
+        'body': 'Content body',
+        'author':self.user}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'My title')
+        self.assertContains(response, 'Content body')
+
+    # test for the update view
+    def test_post_update_view(self):
+        response = self.client.post(reverse('post_edit', args='1'),
+        {
+            'title':'Update title',
+            'body':'Update body',
+            'author': self.user,
+        }
+        )
+        self.assertEqual(response.status_code, 302)
+
+    # test for the delete view
+    def test_post_delete_view(self):
+        response = self.client.get(reverse('post_delete', args='1'))
+
+        self.assertEqual(response.status_code, 200)
