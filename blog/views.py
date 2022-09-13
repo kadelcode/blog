@@ -1,6 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView, DetailView, CreateView, UpdateView, DeleteView,
+    CreateView
+    )
 from .models import Post
+from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 
 # Create your views here.
