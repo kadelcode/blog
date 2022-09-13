@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if user.is_authenticated %}
+        <h4>Hi {{user.username}}</h4>
+        <a href="{% url 'logout' %}">Logout</a>
+    
+    {% else %}
+        <p>You are not currently authenticated. You can <a href="{% url 'login' %}">Login</a></p>
+
+    {% endif %}
     <h1>Healthy Weblog</h1>
     {% for post in object_list %}
         <div style="margin: 5%; background-color:blueviolet; color:white; padding:5px; border-radius:5%;">
